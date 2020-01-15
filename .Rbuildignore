@@ -3,9 +3,8 @@
 ^LICENSE\.md$
 ^README\.Rmd$
 ^\.github/workflows/R-CMD-check\.yaml$
-<<<<<<< HEAD
-=======
 ^\.github/workflows/pkgdown\.yaml$
 ^\.github$
-./vignettes/
->>>>>>> gh-pages
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
