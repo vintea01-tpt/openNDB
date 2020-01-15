@@ -1,9 +1,14 @@
-library(tidyverse)
-library(openxlsx)
-
+#' Tidying NDB excel file
+#'
+#' @param xlsx excel file to tidy
+#'
+#' @import tidyverse
+#' @import openxlsx
+#' @export
+#'
 tidyNDB_xlsx <- function(xlsx){
-  data <- openxlsx::read.xlsx(xlsx)[-c(1:2),] %>%
-    tidyr::fill(1, 2)
+  data <- read.xlsx(xlsx)[-c(1:2),] %>%
+    fill(1, 2)
   data_male <- select(data, 1:30) %>%
   rename(!!!setNames(names(select(data, 1:30)), c(raw[1,1:9], raw[2,10:30]))) %>%
   mutate(sex=0)
