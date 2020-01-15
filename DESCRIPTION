@@ -1,0 +1,17 @@
+Package: openNDB
+Type: Package
+Title: What the Package Does (Title Case)
+Version: 0.0.1
+Authors@R: person("Vintea", "@T/T", role = c("aut", "cre"), email = "tpt.ochanomizu@gmail.com")
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.0.2
+Suggests: 
+    testthat (>= 2.1.0)
+Depends: 
+    tidyverse
+Imports: 
+    openxlsx

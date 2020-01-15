@@ -1,0 +1,95 @@
+---
+title: "NDBオープンデータのtidy化"
+author: "Tomoya Miyagi"
+date: "1/15/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readxl)
+```
+
+## 元データ
+
+https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000177221_00003.htmlより、 外来（院外）性年齢別薬効分類別数量
+
+```{r}
+raw <- openxlsx::read.xlsx("../NDBdata/naifuku_gairai_ingai_sex_age.xlsx")
+head(raw)
+```
+
+## tidy化
+
+### 読み込みと空欄埋め
+
+最初の4行は無視して読み込む。
+
+```{r}
+data <- openxlsx::read.xlsx("../NDBdata/naifuku_gairai_ingai_sex_age.xlsx")[-c(1:2),]
+
+# , skip=4, col_names = FALSE, col_types = )
+head(data)
+```
+
+セル結合によって生まれた空欄を直前の値で埋め立て
+
+```{r}
+data <- tidyr::fill(data, 1, 2)
+head(data)
+```
+
+
+### 性別と年齢がマルチカラムになっているのを直し、カラム名もつける
+
+性別でテーブルを横で切って縦に結合する。その際にカラム名もつける
+
+```{r}
+raw[2,]
+```
+
+男性ゾーンは10~30行目。
+
+```{r}
+data_male <- select(data, 1:30) %>%
+  rename(!!!setNames(names(select(data, 1:30)), c(raw[1,1:9], raw[2,10:30]))) %>%
+  mutate(sex=0)
+data_female <- select(data, 1:9, 31:51) %>%
+  rename(!!!setNames(names(select(data, 1:9, 31:51)), c(raw[1,1:9], raw[2,10:30]))) %>% 
+  mutate(sex=1)
+data_sex <- bind_rows(data_male, data_female)
+head(data_sex)
+```
+
+### 年齢も縦持ちにする
+
+```{r}
+data_tidy <- data_sex %>% 
+  pivot_longer(10:30, names_to = "age", values_to = "price")
+head(data_tidy)
+```
+
+### 関数にまとめる
+
+```{r}
+tidyNDB_xlsx <- function(xlsx){
+  data <- openxlsx::read.xlsx(xlsx)[-c(1:2),] %>% 
+    tidyr::fill(1, 2)
+  data_male <- select(data, 1:30) %>%
+  rename(!!!setNames(names(select(data, 1:30)), c(raw[1,1:9], raw[2,10:30]))) %>%
+  mutate(sex=0)
+  data_female <- select(data, 1:9, 31:51) %>%
+    rename(!!!setNames(names(select(data, 1:9, 31:51)), c(raw[1,1:9], raw[2,10:30]))) %>% 
+    mutate(sex=1)
+  data_tidy <- bind_rows(data_male, data_female) %>% 
+    pivot_longer(10:30, names_to = "age", values_to = "price")
+  return(data_tidy)
+}
+```
+
+```{r}
+data_tidy = tidyNDB_xlsx(xlsx="../NDBdata/naifuku_gairai_ingai_sex_age.xlsx")
+head(data_tidy)
+```
+
