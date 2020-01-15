@@ -93,3 +93,15 @@ data_tidy = tidyNDB_xlsx(xlsx="../NDBdata/naifuku_gairai_ingai_sex_age.xlsx")
 head(data_tidy)
 ```
 
+## apache arrowにする
+
+```{r}
+library(arrow)
+write_parquet(data_tidy, "../NDBdata/naifuku_gairai_ingai_sex_age.parquet")
+```
+
+```{r}
+read_parquet("../NDBdata/naifuku_gairai_ingai_sex_age.parquet")
+```
+
+
