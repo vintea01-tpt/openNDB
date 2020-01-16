@@ -20,8 +20,8 @@ install.packages("openNDB")
 ```
 -->
 
-You can install the development version from
-[GitHub](https://github.com/) with:
+You can install the development version from [GitHub
+repository](https://github.com/Vintea01/openNDB) with:
 
 ``` r
 # install.packages("devtools")

@@ -7,6 +7,7 @@ output: rmarkdown::html_vignette
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "./")
 library(tidyverse)
 ```
 
@@ -24,7 +25,11 @@ library(tidyverse)
 
 ```{r}
 library(openNDB)
-data <- suppressMessages(tidyNDB_xlsx("../NDBdata/naifuku_gairai_ingai_sex_age.xlsx"))
+data <- suppressMessages(tidyNDB_xlsx("../NDBdata/original/naifuku_gairai_ingai_sex_age.xlsx"))
+
+# or load parquet file
+# data <- read_parquet("../NDBdata/apache/naifuku_gairai_ingai_sex_age.parquet")
+
 head(data)
 ```
 

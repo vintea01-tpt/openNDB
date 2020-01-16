@@ -45,3 +45,9 @@ head(data_tidy)
 data_tidy %>% mutate(generic=as_factor(generic),sex=as_factor(sex), age=as_factor(age))
 ```
 
+```{r}
+library(openNDB)
+df_tidy <- tidyNDB_xlsx("../NDBdata/original/naifuku_gairai_ingai_sex_age.xlsx")
+save_parquet(df_tidy, "../NDBdata/apache/naifuku_gairai_ingai_sex_age.parquet")
+```
+

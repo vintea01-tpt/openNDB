@@ -62,3 +62,15 @@ tidyNDB_xlsx <- function(xlsx) {
     )
   return(data_tidy)
 }
+
+
+#' save tidy data.frame as parquet
+#'
+#' @param df_tidy tidy data.frame to save
+#' @param save_path path to save the file
+#'
+#' @import arrow
+#' @export
+save_parquet <- function(df_tidy, save_path){
+  write_parquet(df_tidy, save_path)
+}
