@@ -10,7 +10,7 @@
 #' @export
 tidyNDB_xlsx <- function(xlsx) {
   raw <-
-    read_xlsx("../NDBdata/naifuku_gairai_ingai_sex_age.xlsx",
+    read_xlsx(xlsx,
               na = c("", "-"))
   col_name_1 <-
     c(
@@ -30,59 +30,15 @@ tidyNDB_xlsx <- function(xlsx) {
       "numeric",
       "text",
       "numeric",
-      "text",
-      "text",
-      "text",
+      rep("text", 3),
       "numeric",
       "text",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric",
-      "numeric"
+      rep("numeric", 43)
     )
   data <-
     suppressWarnings(
       read_xlsx(
-        "../NDBdata/naifuku_gairai_ingai_sex_age.xlsx",
+        xlsx,
         skip = 4,
         col_names = FALSE,
         col_type = col_type_list

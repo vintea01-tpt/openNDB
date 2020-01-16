@@ -1,5 +1,5 @@
 ---
-title: "ページのテスト"
+title: "Example 1: 男女で使用割合が大きく異なる薬剤"
 author: "Vintea"
 date: "1/15/2020"
 output: rmarkdown::html_vignette
@@ -17,14 +17,57 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### リサーチクエスチョン
 
-性差とによって
+性差によって使用数が大きく異なる薬剤はなんだろうか？
 
 ## import
 
 ```{r}
 library(openNDB)
-data <- tidyNDB_xlsx("../NDBdata/naifuku_gairai_ingai_sex_age.xlsx")
+data <- suppressMessages(tidyNDB_xlsx("../NDBdata/naifuku_gairai_ingai_sex_age.xlsx"))
 head(data)
 ```
 
+## transform
 
+差だと処方回数の多い薬剤が有利になるので割合をみる。なおn/0=Inf, 0/0=NaNとなる。今回はともに0となる場合は性差はないので気にしなくていい。
+
+```{r}
+data_trans <- data %>% select(drugname, sex, count) %>% 
+  mutate(sex=factor(sex, levels = c(0,1), labels=c("male","female"))) %>% 
+  group_by(drugname, sex) %>% 
+  summarise(sum(count, na.rm = TRUE)) %>% 
+  pivot_wider(names_from = sex, values_from = 3) %>% 
+  mutate(diff_by_sex = female/male)
+
+head(data_trans)
+```
+
+## result
+
+### 男性だけが使っている薬剤
+
+```{r}
+data_trans %>% filter(diff_by_sex==0)
+```
+
+135薬剤が該当した。
+
+### 女性も使っているが男性が多い薬剤
+
+```{r}
+data_trans %>% filter(diff_by_sex!=0) %>% arrange(diff_by_sex)
+```
+
+### 男性も使っているが女性が多い薬剤
+
+```{r}
+data_trans %>% filter(diff_by_sex!=Inf) %>% arrange(desc(diff_by_sex))
+```
+
+### 女性だけが使っている薬剤
+
+```{r}
+data_trans %>% filter(diff_by_sex==Inf)
+```
+
+121薬剤が該当した。
