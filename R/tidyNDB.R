@@ -2,20 +2,107 @@
 #'
 #' @param xlsx excel file to tidy
 #'
-#' @import tidyverse
-#' @import openxlsx
+#' @import readxl
+#' @import tidyr
+#' @import dplyr
+#' @import purrr
+#' @import forcats
 #' @export
-#'
-tidyNDB_xlsx <- function(xlsx){
-  data <- read.xlsx(xlsx)[-c(1:2),] %>%
+tidyNDB_xlsx <- function(xlsx) {
+  raw <-
+    read_xlsx("../NDBdata/naifuku_gairai_ingai_sex_age.xlsx",
+              na = c("", "-"))
+  col_name_1 <-
+    c(
+      "typecode",
+      "typename",
+      "drugcode",
+      "drugname",
+      "tanni",
+      "yakkakijun",
+      "price",
+      "generic",
+      "total"
+    )
+  col_name_2 <- raw[3, 10:30]
+  col_type_list <-
+    c(
+      "numeric",
+      "text",
+      "numeric",
+      "text",
+      "text",
+      "text",
+      "numeric",
+      "text",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric",
+      "numeric"
+    )
+  data <-
+    suppressWarnings(
+      read_xlsx(
+        "../NDBdata/naifuku_gairai_ingai_sex_age.xlsx",
+        skip = 4,
+        col_names = FALSE,
+        col_type = col_type_list
+      )
+    ) %>%
     fill(1, 2)
-  data_male <- select(data, 1:30) %>%
-  rename(!!!setNames(names(select(data, 1:30)), c(raw[1,1:9], raw[2,10:30]))) %>%
-  mutate(sex=0)
-  data_female <- select(data, 1:9, 31:51) %>%
-    rename(!!!setNames(names(select(data, 1:9, 31:51)), c(raw[1,1:9], raw[2,10:30]))) %>%
-    mutate(sex=1)
+  data_male <- data %>%
+    select(1:30) %>%
+    set_names(c(col_name_1, col_name_2)) %>%
+    mutate(sex = 0)
+  data_female <- data %>%
+    select(1:9, 31:51) %>%
+    set_names(c(col_name_1, col_name_2)) %>%
+    mutate(sex = 1)
   data_tidy <- bind_rows(data_male, data_female) %>%
-    pivot_longer(10:30, names_to = "age", values_to = "price")
+    pivot_longer(10:30, names_to = "age", values_to = "count") %>%
+    mutate(
+      generic = as_factor(generic),
+      sex = as_factor(sex),
+      age = as_factor(age)
+    )
   return(data_tidy)
 }

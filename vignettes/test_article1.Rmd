@@ -1,6 +1,6 @@
 ---
 title: "ページのテスト"
-author: "Tomoya Miyagi"
+author: "Vintea"
 date: "1/15/2020"
 output: rmarkdown::html_vignette
 ---
@@ -9,4 +9,22 @@ output: rmarkdown::html_vignette
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-helllllllllllllllllll!!!!!!!!!
+## 概要
+
+### 元データ
+
+第4回NDBオープンデータから「外来（院外）性年齢別薬効分類別数量」
+
+### リサーチクエスチョン
+
+性差とによって
+
+## import
+
+```{r}
+library(openNDB)
+data <- tidyNDB_xlsx("../NDBdata/naifuku_gairai_ingai_sex_age.xlsx")
+head(data)
+```
+
+

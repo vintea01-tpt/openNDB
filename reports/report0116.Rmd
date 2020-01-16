@@ -1,0 +1,47 @@
+---
+title: "readxlで数値もちゃんと直す"
+author: "Tomoya Miyagi"
+date: "1/16/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readxl)
+```
+
+## import
+
+```{r}
+raw <- read_xlsx("../NDBdata/naifuku_gairai_ingai_sex_age.xlsx", na=c("", "-"))
+col_name_1 <- c("typecode","typename","drugcode","drugname","tanni","yakkakijun","price",
+                "generic","total")
+col_name_2 <- raw[3,10:30]
+col_type_list <- c("numeric","text","numeric","text","text","text","numeric","text","numeric",
+                   "numeric","numeric","numeric","numeric","numeric","numeric","numeric",
+                   "numeric","numeric","numeric","numeric","numeric","numeric","numeric",
+                   "numeric","numeric","numeric","numeric","numeric","numeric","numeric",
+                   "numeric","numeric","numeric","numeric","numeric","numeric","numeric",
+                   "numeric","numeric","numeric","numeric","numeric","numeric","numeric",
+                   "numeric","numeric","numeric","numeric","numeric","numeric","numeric")
+data <- suppressWarnings(read_xlsx("../NDBdata/naifuku_gairai_ingai_sex_age.xlsx", skip=4, col_names=FALSE, col_type=col_type_list)) %>% 
+  fill(1, 2)
+data_male <- data %>% 
+  select(1:30) %>% 
+  set_names(c(col_name_1,col_name_2)) %>% 
+  mutate(sex=0)
+data_female <- data %>% 
+  select(1:9, 31:51) %>% 
+  set_names(c(col_name_1,col_name_2)) %>% 
+  mutate(sex=1)
+data_tidy <- bind_rows(data_male, data_female) %>% 
+  pivot_longer(10:30, names_to = "age", values_to = "count") %>%
+  mutate(generic=as_factor(generic),sex=as_factor(sex), age=as_factor(age))
+head(data_tidy)
+```
+
+```{r}
+data_tidy %>% mutate(generic=as_factor(generic),sex=as_factor(sex), age=as_factor(age))
+```
+

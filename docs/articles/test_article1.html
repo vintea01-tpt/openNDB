@@ -73,7 +73,7 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>ページのテスト</h1>
-                        <h4 class="author">Tomoya Miyagi</h4>
+                        <h4 class="author">Vintea</h4>
             
             <h4 class="date">1/15/2020</h4>
       
@@ -84,11 +84,63 @@
 
     
     
-<p>helllllllllllllllllll!!!!!!!!!</p>
+<div id="概要" class="section level2">
+<h2 class="hasAnchor">
+<a href="#%E6%A6%82%E8%A6%81" class="anchor"></a>概要</h2>
+<div id="元データ" class="section level3">
+<h3 class="hasAnchor">
+<a href="#%E5%85%83%E3%83%87%E3%83%BC%E3%82%BF" class="anchor"></a>元データ</h3>
+<p>第4回NDBオープンデータから「外来（院外）性年齢別薬効分類別数量」</p>
+</div>
+<div id="リサーチクエスチョン" class="section level3">
+<h3 class="hasAnchor">
+<a href="#%E3%83%AA%E3%82%B5%E3%83%BC%E3%83%81%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%81%E3%83%A7%E3%83%B3" class="anchor"></a>リサーチクエスチョン</h3>
+<p>性差とによって</p>
+</div>
+</div>
+<div id="import" class="section level2">
+<h2 class="hasAnchor">
+<a href="#import" class="anchor"></a>import</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(openNDB)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tidyNDB_xlsx.html">tidyNDB_xlsx</a></span>(<span class="st">"../NDBdata/naifuku_gairai_ingai_sex_age.xlsx"</span>)</span></code></pre></div>
+<pre><code>## New names:
+## * `` -&gt; ...2
+## * `` -&gt; ...3
+## * `` -&gt; ...4
+## * `` -&gt; ...5
+## * `` -&gt; ...6
+## * … and 45 more problems</code></pre>
+<pre><code>## New names:
+## * `` -&gt; ...1
+## * `` -&gt; ...2
+## * `` -&gt; ...3
+## * `` -&gt; ...4
+## * `` -&gt; ...5
+## * … and 46 more problems</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(data)</span></code></pre></div>
+<pre><code>## # A tibble: 6 x 12
+##   typecode typename drugcode drugname tanni yakkakijun price generic  total
+##      &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;fct&gt;    &lt;dbl&gt;
+## 1      112 催眠鎮静剤，抗…   6.11e8 ソラナックス０… 錠    1124023F1…   8.5 0       1.42e8
+## 2      112 催眠鎮静剤，抗…   6.11e8 ソラナックス０… 錠    1124023F1…   8.5 0       1.42e8
+## 3      112 催眠鎮静剤，抗…   6.11e8 ソラナックス０… 錠    1124023F1…   8.5 0       1.42e8
+## 4      112 催眠鎮静剤，抗…   6.11e8 ソラナックス０… 錠    1124023F1…   8.5 0       1.42e8
+## 5      112 催眠鎮静剤，抗…   6.11e8 ソラナックス０… 錠    1124023F1…   8.5 0       1.42e8
+## 6      112 催眠鎮静剤，抗…   6.11e8 ソラナックス０… 錠    1124023F1…   8.5 0       1.42e8
+## # … with 3 more variables: sex &lt;fct&gt;, age &lt;fct&gt;, count &lt;dbl&gt;</code></pre>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
 
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#%E6%A6%82%E8%A6%81">概要</a></li>
+      <li><a href="#import">import</a></li>
+      </ul>
+</div>
       </div>
 
 </div>
