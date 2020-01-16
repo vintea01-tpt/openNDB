@@ -7,7 +7,7 @@
 
 <!-- badges: end -->
 
-![NDBオープンデータ](https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000177182.html)を可視化・分析しやすい形にする
+[NDBオープンデータ](https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000177182.html)を可視化・分析しやすい形にする
 
 ## Installation
 
