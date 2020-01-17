@@ -104,7 +104,9 @@
 <span id="cb2-2"><a href="#cb2-2"></a>  df_tidy &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tidy_syohouyaku_sex_age.html">tidy_syohouyaku_sex_age</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"../NDBdata/original/syohouyaku/"</span>, xlsx, <span class="dt">sep =</span> <span class="st">""</span>))</span>
 <span id="cb2-3"><a href="#cb2-3"></a>  <span class="kw"><a href="https://arrow.apache.org/docs/r//reference/write_parquet.html">write_parquet</a></span>(df_tidy, <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"../NDBdata/apache/syohouyaku/"</span>, <span class="kw"><a href="https://rdrr.io/r/base/substr.html">substr</a></span>(xlsx, <span class="dt">start =</span> <span class="dv">1</span>, <span class="dt">stop =</span> <span class="kw"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span>(xlsx)<span class="op">-</span><span class="dv">4</span>), </span>
 <span id="cb2-4"><a href="#cb2-4"></a>                              <span class="st">"parquet"</span>, <span class="dt">sep =</span> <span class="st">""</span>))</span>
-<span id="cb2-5"><a href="#cb2-5"></a>}</span></code></pre></div>
+<span id="cb2-5"><a href="#cb2-5"></a>  <span class="kw"><a href="https://rdrr.io/r/utils/write.table.html">write.csv</a></span>(df_tidy, <span class="kw"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"../NDBdata/csv/syohouyaku/"</span>, <span class="kw"><a href="https://rdrr.io/r/base/substr.html">substr</a></span>(xlsx, <span class="dt">start =</span> <span class="dv">1</span>, <span class="dt">stop =</span> <span class="kw"><a href="https://rdrr.io/r/base/nchar.html">nchar</a></span>(xlsx)<span class="op">-</span><span class="dv">4</span>), </span>
+<span id="cb2-6"><a href="#cb2-6"></a>                              <span class="st">"csv"</span>, <span class="dt">sep =</span> <span class="st">""</span>))</span>
+<span id="cb2-7"><a href="#cb2-7"></a>}</span></code></pre></div>
 </div>
 </div>
   </div>
