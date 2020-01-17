@@ -12,6 +12,7 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_knit$set(root.dir = "./")
+library(tidyverse)
 ```
 
 ## 概要
@@ -28,10 +29,10 @@ knitr::opts_knit$set(root.dir = "./")
 
 ```{r}
 library(openNDB)
-data <- suppressMessages(tidy_syohouyaku_sex_age("../NDBdata/original/syohouyaku/内服_外来_院外_性年齢別.xlsx"))
+data <- suppressMessages(tidy_syohouyaku_sex_age("../NDBdata/original/syohouyaku/sex_age/h29_naifuku_gairai_ingai_sex_age.xlsx"))
 
 # or load parquet file
-# data <- read_parquet("../NDBdata/apache/syohouyaku/内服_外来_院外_性年齢別.parquet")
+# data <- arrow::read_parquet("../NDBdata/apache/syohouyaku/sex_age/h29_naifuku_gairai_ingai_sex_age.parquet")
 
 head(data)
 ```

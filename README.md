@@ -11,6 +11,8 @@
 
 [tidy化したものをcsv/parquet形式で配布しています。](https://github.com/Vintea01/openNDB/tree/master/NDBdata)パッケージはtidy化のコードを公表し、再現性を担保するためのものです。
 
+現在、処方薬数量のtidyデータ版を公開しています。
+
 ## Installation
 
 <!--  
