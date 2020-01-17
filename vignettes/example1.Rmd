@@ -3,6 +3,10 @@ title: "Example 1: 男女で使用割合が大きく異なる薬剤"
 author: "Vintea"
 date: "1/15/2020"
 output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{openNDB}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -25,7 +29,7 @@ library(tidyverse)
 
 ```{r}
 library(openNDB)
-data <- suppressMessages(tidyNDB_xlsx("../NDBdata/original/naifuku_gairai_ingai_sex_age.xlsx"))
+data <- suppressMessages(tidy_syohouyaku_sex_age("../NDBdata/original/naifuku_gairai_ingai_sex_age.xlsx"))
 
 # or load parquet file
 # data <- read_parquet("../NDBdata/apache/naifuku_gairai_ingai_sex_age.parquet")

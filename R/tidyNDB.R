@@ -8,7 +8,7 @@
 #' @import purrr
 #' @import forcats
 #' @export
-tidyNDB_xlsx <- function(xlsx) {
+tidy_syohouyaku_sex_age <- function(xlsx) {
   raw <-
     read_xlsx(xlsx,
               na = c("", "-"))
@@ -61,16 +61,4 @@ tidyNDB_xlsx <- function(xlsx) {
       age = as_factor(age)
     )
   return(data_tidy)
-}
-
-
-#' save tidy data.frame as parquet
-#'
-#' @param df_tidy tidy data.frame to save
-#' @param save_path path to save the file
-#'
-#' @import arrow
-#' @export
-save_parquet <- function(df_tidy, save_path){
-  write_parquet(df_tidy, save_path)
 }
