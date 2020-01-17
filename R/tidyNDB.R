@@ -1,16 +1,10 @@
 #' 性年齢別の処方薬数量データをtidy化
 #'
 #' @param xlsx excel file to tidy
-#'
-#' @import readxl
-#' @import tidyr
-#' @import dplyr
-#' @import purrr
-#' @import forcats
 #' @export
 tidy_syohouyaku_sex_age <- function(xlsx) {
   raw <-
-    read_xlsx(xlsx,
+    readxl::read_xlsx(xlsx,
               na = c("", "-"))
   col_name_1 <-
     c(
@@ -37,28 +31,28 @@ tidy_syohouyaku_sex_age <- function(xlsx) {
     )
   data <-
     suppressWarnings(
-      read_xlsx(
+      readxl::read_xlsx(
         xlsx,
         skip = 4,
         col_names = FALSE,
         col_type = col_type_list
       )
     ) %>%
-    fill(1, 2)
+    tidyr::fill(1, 2)
   data_male <- data %>%
-    select(1:30) %>%
-    set_names(c(col_name_1, col_name_2)) %>%
-    mutate(sex = 0)
+    dplyr::select(1:30) %>%
+    purrr::set_names(c(col_name_1, col_name_2)) %>%
+    dplyr::mutate(sex = 0)
   data_female <- data %>%
-    select(1:9, 31:51) %>%
-    set_names(c(col_name_1, col_name_2)) %>%
-    mutate(sex = 1)
-  data_tidy <- bind_rows(data_male, data_female) %>%
-    pivot_longer(10:30, names_to = "age", values_to = "count") %>%
-    mutate(
-      generic = as_factor(generic),
-      sex = as_factor(sex),
-      age = as_factor(age)
+    dplyr::select(1:9, 31:51) %>%
+    purrr::set_names(c(col_name_1, col_name_2)) %>%
+    dplyr::mutate(sex = 1)
+  data_tidy <- dplyr::bind_rows(data_male, data_female) %>%
+    tidyr::pivot_longer(10:30, names_to = "age", values_to = "count") %>%
+    dplyr::mutate(
+      generic = as.factor(generic),
+      sex = as.factor(sex),
+      age = as.factor(age)
     )
   return(data_tidy)
 }

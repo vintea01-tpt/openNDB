@@ -17,7 +17,8 @@ Imports:
     dplyr,
     tidyr,
     readxl,
-    forcats,
     purrr,
-    magrittr
+    magrittr,
+    tidyverse,
+    arrow
 VignetteBuilder: knitr

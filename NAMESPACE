@@ -2,9 +2,4 @@
 
 export("%>%")
 export(tidy_syohouyaku_sex_age)
-import(dplyr)
-import(forcats)
-import(purrr)
-import(readxl)
-import(tidyr)
 importFrom(magrittr,"%>%")

@@ -19,7 +19,6 @@ knitr::opts_knit$set(root.dir = "./")
 
 ```{r setup}
 library(openNDB)
-library(arrow)
 ```
 
 ## 処方薬
@@ -29,7 +28,7 @@ library(arrow)
 ```{r eval=FALSE}
 for (xlsx in list.files("../NDBdata/original/syohouyaku/")){
   df_tidy <- tidy_syohouyaku_sex_age(paste("../NDBdata/original/syohouyaku/", xlsx, sep = ""))
-  write_parquet(df_tidy, paste("../NDBdata/apache/syohouyaku/", substr(xlsx, start = 1, stop = nchar(xlsx)-4), 
+  arrow::write_parquet(df_tidy, paste("../NDBdata/apache/syohouyaku/", substr(xlsx, start = 1, stop = nchar(xlsx)-4), 
                               "parquet", sep = ""))
   write.csv(df_tidy, paste("../NDBdata/csv/syohouyaku/", substr(xlsx, start = 1, stop = nchar(xlsx)-4), 
                               "csv", sep = ""))
