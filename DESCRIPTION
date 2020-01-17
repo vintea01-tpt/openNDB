@@ -1,7 +1,7 @@
 Package: openNDB
 Type: Package
 Title: What the Package Does (Title Case)
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: person("Vintea", "@T/T", role = c("aut", "cre"), email = "tpt.ochanomizu@gmail.com")
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
@@ -19,6 +19,7 @@ Imports:
     readxl,
     purrr,
     magrittr,
+    stringr,
     tidyverse,
     arrow
 VignetteBuilder: knitr

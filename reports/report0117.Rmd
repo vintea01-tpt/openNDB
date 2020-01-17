@@ -1,0 +1,76 @@
+---
+title: "処方薬都道府県別に対応したい"
+author: "Tomoya Miyagi"
+date: "2020/1/17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "~/Projects/openNDB/")
+library(tidyverse)
+library(readxl)
+```
+
+```{r}
+tidy_syohouyaku_prefecture <- function(xlsx) {
+  raw <-
+    readxl::read_xlsx(xlsx,
+                      na = c("", "-"))
+  col_name_1 <-
+    c(
+      "typecode",
+      "typename",
+      "drugcode",
+      "drugname",
+      "tanni",
+      "yakkakijun",
+      "price",
+      "generic",
+      "total"
+    )
+  col_name_2 <- raw[3, 10:56]
+  col_type_list <-
+    c("numeric",
+      "text",
+      "numeric",
+      rep("text", 3),
+      rep("numeric", 50))
+  data <-
+    suppressWarnings(readxl::read_xlsx(
+      xlsx,
+      skip = 4,
+      col_names = FALSE,
+      col_type = col_type_list,
+      na = c("", "-")
+    )) %>%
+    tidyr::fill(1, 2) %>%
+    purrr::set_names(c(col_name_1, col_name_2)) %>% 
+    tidyr::pivot_longer(10:56, names_to = "prefecture", values_to = "count") %>%
+    dplyr::mutate(generic = as.factor(generic),
+                  prefecture = as.factor(prefecture))
+  return(data)
+}
+```
+
+```{r}
+tidy_syohouyaku_prefecture("NDBdata/original/syohouyaku/h29_chusya_prefecture.xlsx")
+```
+
+```{r}
+col_name_1 <-
+    c(
+      "typecode",
+      "typename",
+      "drugcode",
+      "drugname",
+      "tanni",
+      "yakkakijun",
+      "price",
+      "generic",
+      "total"
+    )
+col_name_2 <- read_xlsx("NDBdata/original/syohouyaku/h29_chusya_prefecture.xlsx")[3,10:56]
+c(col_name_1,col_name_2)
+```
+

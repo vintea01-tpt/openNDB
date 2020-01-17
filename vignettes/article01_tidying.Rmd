@@ -26,14 +26,27 @@ library(openNDB)
 ### 性年齢別
 
 ```{r eval=FALSE}
-for (xlsx in list.files("../NDBdata/original/syohouyaku/")){
-  df_tidy <- tidy_syohouyaku_sex_age(paste("../NDBdata/original/syohouyaku/", xlsx, sep = ""))
-  arrow::write_parquet(df_tidy, paste("../NDBdata/apache/syohouyaku/", substr(xlsx, start = 1, stop = nchar(xlsx)-4), 
+for (xlsx in list.files("../NDBdata/original/syohouyaku/sex_age/")){
+  df_tidy <- tidy_syohouyaku_sex_age(paste("../NDBdata/original/syohouyaku/sex_age/", xlsx, sep = ""))
+  arrow::write_parquet(df_tidy, paste("../NDBdata/apache/syohouyaku/sex_age/", substr(xlsx, start = 1, stop = nchar(xlsx)-4), 
                               "parquet", sep = ""))
-  write.csv(df_tidy, paste("../NDBdata/csv/syohouyaku/", substr(xlsx, start = 1, stop = nchar(xlsx)-4), 
+  write.csv(df_tidy, paste("../NDBdata/csv/syohouyaku/sex_age/", substr(xlsx, start = 1, stop = nchar(xlsx)-4), 
                               "csv", sep = ""))
 }
 ```
+
+### 都道府県別
+
+```{r eval=FALSE}
+for (xlsx in list.files("../NDBdata/original/syohouyaku/prefecture/")){
+  df_tidy <- tidy_syohouyaku_prefecture(paste("../NDBdata/original/syohouyaku/prefecture/", xlsx, sep = ""))
+  arrow::write_parquet(df_tidy, paste("../NDBdata/apache/syohouyaku/prefecture/", substr(xlsx, start = 1, stop = nchar(xlsx)-4), 
+                              "parquet", sep = ""))
+  write.csv(df_tidy, paste("../NDBdata/csv/syohouyaku/prefecture/", substr(xlsx, start = 1, stop = nchar(xlsx)-4), 
+                              "csv", sep = ""))
+}
+```
+
 
 
 
