@@ -14,5 +14,10 @@ Suggests:
     knitr,
     rmarkdown
 Imports:
-    dplyr, tidyr, readxl, forcats, purrr
+    dplyr,
+    tidyr,
+    readxl,
+    forcats,
+    purrr,
+    magrittr
 VignetteBuilder: knitr

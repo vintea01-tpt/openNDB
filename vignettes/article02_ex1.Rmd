@@ -29,10 +29,10 @@ library(tidyverse)
 
 ```{r}
 library(openNDB)
-data <- suppressMessages(tidy_syohouyaku_sex_age("../NDBdata/original/naifuku_gairai_ingai_sex_age.xlsx"))
+data <- suppressMessages(tidy_syohouyaku_sex_age("../NDBdata/original/syohouyaku/内服_外来_院外_性年齢別.xlsx"))
 
 # or load parquet file
-# data <- read_parquet("../NDBdata/apache/naifuku_gairai_ingai_sex_age.parquet")
+# data <- read_parquet("../NDBdata/apache/syohouyaku/内服_外来_院外_性年齢別.parquet")
 
 head(data)
 ```

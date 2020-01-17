@@ -9,6 +9,8 @@
 
 [NDBオープンデータ](https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000177182.html)を可視化・分析しやすい形にする
 
+[tidy化したものをparquet形式で配布しています。](https://github.com/Vintea01/openNDB/tree/master/NDBdata/apache)
+
 ## Installation
 
 <!--  
