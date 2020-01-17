@@ -4,7 +4,7 @@ author: "Vintea"
 date: "1/15/2020"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{openNDB}
+  %\VignetteIndexEntry{article02_ex1}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

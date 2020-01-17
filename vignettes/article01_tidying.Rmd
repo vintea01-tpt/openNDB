@@ -4,7 +4,7 @@ output: rmarkdown::html_vignette
 author: Vintea
 date: 01/17/2020
 vignette: >
-  %\VignetteIndexEntry{openNDB}
+  %\VignetteIndexEntry{article01_tidying}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -31,6 +31,8 @@ for (xlsx in list.files("../NDBdata/original/syohouyaku/")){
   df_tidy <- tidy_syohouyaku_sex_age(paste("../NDBdata/original/syohouyaku/", xlsx, sep = ""))
   write_parquet(df_tidy, paste("../NDBdata/apache/syohouyaku/", substr(xlsx, start = 1, stop = nchar(xlsx)-4), 
                               "parquet", sep = ""))
+  write.csv(df_tidy, paste("../NDBdata/csv/syohouyaku/", substr(xlsx, start = 1, stop = nchar(xlsx)-4), 
+                              "csv", sep = ""))
 }
 ```
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/tidyNDB.R
 \name{tidy_syohouyaku_sex_age}
 \alias{tidy_syohouyaku_sex_age}
-\title{Tidying NDB excel file}
+\title{性年齢別の処方薬数量データをtidy化}
 \usage{
 tidy_syohouyaku_sex_age(xlsx)
 }
@@ -10,5 +10,5 @@ tidy_syohouyaku_sex_age(xlsx)
 \item{xlsx}{excel file to tidy}
 }
 \description{
-Tidying NDB excel file
+性年齢別の処方薬数量データをtidy化
 }

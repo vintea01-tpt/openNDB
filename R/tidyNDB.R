@@ -1,4 +1,4 @@
-#' Tidying NDB excel file
+#' 性年齢別の処方薬数量データをtidy化
 #'
 #' @param xlsx excel file to tidy
 #'
