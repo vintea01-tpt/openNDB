@@ -1,7 +1,7 @@
 Package: openNDB
 Type: Package
 Title: NDBオープンデータをtidyにする
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("Vintea", "@T/T", role = c("aut", "cre"), email = "tpt.ochanomizu@gmail.com")
 Description: NDBオープンデータをtidy化するためのコードを公開する。
 License: GPL-3 + file LICENSE

@@ -1,5 +1,6 @@
-#' NDBオープンデータのすべてのxlsxファイルをダウンロードする
-#' 参考: https://nigimitama.hatenablog.jp/entry/2018/12/18/173703
+#' @title ダウンロード
+#' @description NDBオープンデータのすべてのxlsxファイルをダウンロードする
+#' @note 参考: https://nigimitama.hatenablog.jp/entry/2018/12/18/173703
 #' @param foldername destination folder path with /
 #' @export
 download_xlsx <- function(foldername) {
@@ -35,8 +36,8 @@ download_xlsx <- function(foldername) {
 }
 
 
-#' 性年齢別の処方薬数量データをtidy化
-#'
+#' @title 処方薬(性年齢別)
+#' @description 性年齢別の処方薬数量データをtidy化
 #' @param xlsx excel file to tidy
 #' @export
 tidy_syohouyaku_sex_age <- function(xlsx) {
@@ -138,7 +139,8 @@ tidy_syohouyaku_sex_age <- function(xlsx) {
   return(data_tidy)
 }
 
-#' 都道府県別の処方薬数量データをtidy化
+#' @title 処方薬(都道府県別)
+#' @description 都道府県別の処方薬数量データをtidy化
 #' @param xlsx excel file to tidy
 #' @export
 tidy_syohouyaku_prefecture <- function(xlsx) {

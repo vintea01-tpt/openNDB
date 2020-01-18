@@ -2,7 +2,7 @@
 % Please edit documentation in R/tidyNDB.R
 \name{tidy_syohouyaku_sex_age}
 \alias{tidy_syohouyaku_sex_age}
-\title{性年齢別の処方薬数量データをtidy化}
+\title{処方薬(性年齢別)}
 \usage{
 tidy_syohouyaku_sex_age(xlsx)
 }

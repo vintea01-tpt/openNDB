@@ -2,7 +2,7 @@
 % Please edit documentation in R/tidyNDB.R
 \name{tidy_syohouyaku_prefecture}
 \alias{tidy_syohouyaku_prefecture}
-\title{都道府県別の処方薬数量データをtidy化}
+\title{処方薬(都道府県別)}
 \usage{
 tidy_syohouyaku_prefecture(xlsx)
 }

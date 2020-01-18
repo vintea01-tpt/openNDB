@@ -2,8 +2,7 @@
 % Please edit documentation in R/tidyNDB.R
 \name{download_xlsx}
 \alias{download_xlsx}
-\title{NDBオープンデータのすべてのxlsxファイルをダウンロードする
-参考: https://nigimitama.hatenablog.jp/entry/2018/12/18/173703}
+\title{ダウンロード}
 \usage{
 download_xlsx(foldername)
 }
@@ -12,5 +11,7 @@ download_xlsx(foldername)
 }
 \description{
 NDBオープンデータのすべてのxlsxファイルをダウンロードする
+}
+\note{
 参考: https://nigimitama.hatenablog.jp/entry/2018/12/18/173703
 }
