@@ -1,0 +1,110 @@
+---
+title: "ファイルを自動でダウンロードする"
+author: "Tomoya Miyagi"
+date: "1/18/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(rvest)
+```
+
+## 目的
+
+rvestを用いて厚労省から自動でファイルをダウンロードする。
+
+## 実験
+
+サイトのデータ取得
+
+```{r}
+html_data = read_html("https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000177221_00003.html")
+html_data
+```
+
+```{r}
+url_list <- html_data %>% html_nodes(".li-notesB") %>% html_nodes("a") %>% html_attr("href")
+title_list <- html_data %>% html_nodes(".li-notesB") %>% html_nodes("a") %>% html_text()
+url_df <- data.frame(url = url_list, title=title_list)
+head(url_df)
+```
+
+xlsxのダウンロード
+
+```{r}
+# 取得したURL一覧から順次xlsをダウンロードする
+base_url = "https://www.mhlw.go.jp/" # URLの前半部分（取得したURLが相対URLなので）
+# ダウンロード先フォルダの作成
+download_folder = str_c("../NDBdata/original/xlsx") # ダウンロード先フォルダ
+dir.create(download_folder) # 「xls」というフォルダを作成
+
+```
+
+```{r}
+# download.file()：「指定したURL」から「指定したパス」へのダウンロード
+## ファイル名ベクトルの作成：「北海道_小選挙区」型のファイル名
+file_name = str_c(url_df$title)
+## URLベクトルの作成
+url = str_c(base_url,"/",url_df[["url"]])
+## 各URLをダウンロード
+for(i in 1:length(url)){
+  if(stringr::str_detect(url[i], "xlsx")){
+    download.file(url = url[i],
+                destfile = str_c(download_folder,"/",file_name[i], ".xlsx"),
+                mode = "wb") # 今回は"wb"がうまくいった
+    # 1ループごとに0.5秒待ってサーバーへの負荷をへらす
+    Sys.sleep(0.5) 
+  }
+}
+
+# ダウンロードしたファイルたち
+list.files(download_folder)
+```
+
+成功。
+
+## 関数化
+
+```{r}
+html_list = c(
+    "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000139390.html",
+    "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000177221.html",
+    "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000177221_00002.html",
+    "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000177221_00003.html"
+)
+
+html2url_df <- function(html){
+  html_data <- xml2::read_html(html)
+  title_list <- html_data %>% rvest::html_nodes(".li-notesB") %>% rvest::html_nodes("a") %>% rvest::html_text()
+  url_list <- html_data %>% rvest::html_nodes(".li-notesB") %>% rvest::html_nodes("a") %>% rvest::html_attr("href")
+  url_df <- data.frame(title=title_list, url = url_list)
+  return(url_df)
+}
+
+download_xlsx <- function(url_df, foldername){
+  base_url = "https://www.mhlw.go.jp/"
+  download_folder = stringr::str_c(foldername) # ダウンロード先フォルダ
+  dir.create(download_folder)
+  file_name = stringr::str_c(url_df$title)
+  url = stringr::str_c(base_url,"/",url_df[["url"]])
+  for(i in 1:length(url)){
+    if(stringr::str_detect(url[i], "xlsx")){
+      utils::download.file(url = url[i],
+                  destfile = stringr::str_c(download_folder,"/",file_name[i], ".xlsx"),
+                  mode = "wb") # 今回は"wb"がうまくいった
+      # 1ループごとに0.5秒待ってサーバーへの負荷をへらす
+      Sys.sleep(0.5)
+    }
+  }
+}
+
+for (i in 1:length(html_list)){
+  html = html_list[i]
+  url_df = html2url_df(html)
+  download_xlsx(url_df, stringr::str_c("第", i, "回"))
+}
+
+```
+

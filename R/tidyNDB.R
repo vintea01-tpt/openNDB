@@ -1,3 +1,40 @@
+#' NDBオープンデータのすべてのxlsxファイルをダウンロードする
+#' 参考: https://nigimitama.hatenablog.jp/entry/2018/12/18/173703
+#' @param foldername destination folder path with /
+#' @export
+download_xlsx <- function(foldername) {
+  html_list = c(
+    "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000139390.html",
+    "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000177221.html",
+    "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000177221_00002.html",
+    "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000177221_00003.html"
+  )
+  for (i in 1:length(html_list)) {
+    html_data <- xml2::read_html(html)
+    title_list <-
+      html_data %>% rvest::html_nodes(".li-notesB") %>% rvest::html_nodes("a") %>% rvest::html_text()
+    url_list <-
+      html_data %>% rvest::html_nodes(".li-notesB") %>% rvest::html_nodes("a") %>% rvest::html_attr("href")
+    url_df <- data.frame(title = title_list, url = url_list)
+    base_url = "https://www.mhlw.go.jp/"
+    download_folder = stringr::str_c(foldername, "第", i, "回/")
+    dir.create(download_folder)
+    file_name = stringr::str_c(url_df$title)
+    url = stringr::str_c(base_url, "/", url_df[["url"]])
+    for (i in 1:length(url)) {
+      if (stringr::str_detect(url[i], "xlsx")) {
+        utils::download.file(
+          url = url[i],
+          destfile = stringr::str_c(download_folder, file_name[i], ".xlsx"),
+          mode = "wb"
+        )
+        Sys.sleep(0.5)
+      }
+    }
+  }
+}
+
+
 #' 性年齢別の処方薬数量データをtidy化
 #'
 #' @param xlsx excel file to tidy
@@ -108,7 +145,7 @@ tidy_syohouyaku_prefecture <- function(xlsx) {
   raw <-
     readxl::read_xlsx(xlsx,
                       na = c("", "-"))
-  if (stringr::str_detect(xlsx, "h27")){
+  if (stringr::str_detect(xlsx, "h27")) {
     col_name_1 <-
       c(
         "typecode",
@@ -128,13 +165,15 @@ tidy_syohouyaku_prefecture <- function(xlsx) {
         rep("text", 2),
         rep("numeric", 50))
     data <-
-      suppressWarnings(readxl::read_xlsx(
-        xlsx,
-        skip = 4,
-        col_names = FALSE,
-        col_type = col_type_list,
-        na = c("", "-")
-      )) %>%
+      suppressWarnings(
+        readxl::read_xlsx(
+          xlsx,
+          skip = 4,
+          col_names = FALSE,
+          col_type = col_type_list,
+          na = c("", "-")
+        )
+      ) %>%
       tidyr::fill(1, 2) %>%
       purrr::set_names(c(col_name_1, col_name_2)) %>%
       tidyr::pivot_longer(9:55, names_to = "prefecture", values_to = "count") %>%
@@ -161,13 +200,15 @@ tidy_syohouyaku_prefecture <- function(xlsx) {
         rep("text", 3),
         rep("numeric", 50))
     data <-
-      suppressWarnings(readxl::read_xlsx(
-        xlsx,
-        skip = 4,
-        col_names = FALSE,
-        col_type = col_type_list,
-        na = c("", "-")
-      )) %>%
+      suppressWarnings(
+        readxl::read_xlsx(
+          xlsx,
+          skip = 4,
+          col_names = FALSE,
+          col_type = col_type_list,
+          na = c("", "-")
+        )
+      ) %>%
       tidyr::fill(1, 2) %>%
       purrr::set_names(c(col_name_1, col_name_2)) %>%
       tidyr::pivot_longer(10:56, names_to = "prefecture", values_to = "count") %>%
