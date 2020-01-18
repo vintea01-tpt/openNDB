@@ -19,6 +19,8 @@ Imports:
     purrr,
     magrittr,
     stringr,
+    xml2,
+    rvest,
     tidyverse,
     arrow
 VignetteBuilder: knitr
