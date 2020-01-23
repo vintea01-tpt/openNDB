@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-[NDBオープンデータ](https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000177182.html)を可視化・分析しやすい形にする
+[NDBオープンデータ](https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000177182.html)を可視化・分析しやすい形にするパッケージです。
 
 [tidy化したものをcsv/parquet形式で配布しています。](https://github.com/Vintea01/openNDB/tree/master/NDBdata)パッケージはtidy化のコードを公表し、再現性を担保するためのものです。
 

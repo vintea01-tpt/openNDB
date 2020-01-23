@@ -11,11 +11,17 @@ jobs:
       - uses: actions/checkout@master
       - uses: r-lib/actions/setup-r@master
       - uses: r-lib/actions/setup-pandoc@master
-      - name: Install tidyverse & dependencies
-        run: |
-          Rscript -e 'install.packages("remotes")' \
-                  -e 'remotes::install_deps(dependencies = TRUE)' \
-                  -e 'remotes::install_github("jimhester/pkgdown@github-actions-deploy")'
+      - uses: actions/cache@v1
+        if: startsWith(runner.os, 'macOS')
+        with:
+          path: ~/Library/Application Support/renv
+          key: ${{ runner.os}}-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys: |
+            ${{ runner.os}}-renv-
+      - name: Install & dependencies
+        run: |-
+          Rscript -e 'install.packages("renv")' \
+                  -e 'renv::restore(confirm = FALSE)'
       - name: Install package
         run: R CMD INSTALL .
       - name: Deploy package
